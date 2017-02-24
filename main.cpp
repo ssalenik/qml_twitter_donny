@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
     // QCommandLineOption portOption(QStringList() << "p" << "port", "destination port", "port", "6000");
     // parser.addOption(portOption);
 
-    .process(app);
+    parser.process(app);
 
     QList<QObject*> tweetList = readJson(app);
 
