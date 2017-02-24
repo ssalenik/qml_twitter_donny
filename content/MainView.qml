@@ -16,7 +16,7 @@ Item {
             Image {
                 id: backgroundImage
                 anchors.fill: parent
-                source: "Donald_Trump_official_portrait.jpg"
+                source: "images/Donald_Trump_official_portrait.jpg"
             }
         }
 

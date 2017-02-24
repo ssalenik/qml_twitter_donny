@@ -9,4 +9,8 @@ Rectangle {
     MainView {
         id: mainView
     }
+
+    TwitterView {
+        id: infoView
+    }
 }
