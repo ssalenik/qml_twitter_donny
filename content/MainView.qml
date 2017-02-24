@@ -36,15 +36,24 @@ Item {
             Rectangle {
                 id: wrapper
                 width: parent.width
-                height: tweet_column.height
+                height: wrapper2.height + 20
                 color: "#90FFFFFF"
                 radius: 5
                 border.color: "#900000FF"
                 border.width: 2
-                Column {
-                    id: tweet_column
-                    Text { id: date_text; text: date; }
-                    Text { id: tweet_text; text: '<b>' + twitter_text + '</b> '; wrapMode: Text.WordWrap; width: wrapper.width}
+
+                Rectangle {
+                    id: wrapper2
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: wrapper.width - 30
+                    height: tweet_column.height
+                    color: "transparent"
+                    Column {
+                        id: tweet_column
+                        Text { id: date_text; text: date; }
+                        Text { id: tweet_text; text: '<b>' + twitter_text + '</b> '; wrapMode: Text.WordWrap; width: wrapper2.width}
+                    }
                 }
 
                 MouseArea {
