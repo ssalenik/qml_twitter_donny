@@ -1,3 +1,4 @@
 Makefile
 donny_twitter
-main.o
+*.o
+moc*.cpp
