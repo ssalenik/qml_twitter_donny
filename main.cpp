@@ -7,10 +7,11 @@
 #include <QJsonObject>
 #include <QDebug>
 #include <QQmlContext>
+#include <QProcess>
 
 #include "tweet.h"
 
-QList<QObject*> readJson(QGuiApplication& app);
+QList<QObject*> loadTweets(QGuiApplication& app);
 
 int main(int argc, char* argv[])
 {
@@ -41,14 +42,13 @@ int main(int argc, char* argv[])
     return app.exec();
 }
 
-QList<QObject*> readJson(QGuiApplication& app)
+QList<QObject*> loadTweets(QGuiApplication& app)
 {
-    QString val;
-    QFile file;
-    file.setFileName(QCoreApplication::applicationDirPath() + QLatin1String("/donny.json"));
-    file.open(QIODevice::ReadOnly | QIODevice::Text);
-    val = file.readAll();
-    file.close();
+    QProcess process;
+    process.start("twurl \"/1.1/statuses/user_timeline.json?screen_name=realDonaldTrump&count=5\"");
+    process.waitForFinished();
+    QString val(process.readAllStandardOutput());
+
     qWarning() << val;
     QJsonArray tweetslist = QJsonDocument::fromJson(val.toUtf8()).array();
     QList<QObject*> tweetList;
