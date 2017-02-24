@@ -19,25 +19,18 @@ int main(int argc, char* argv[])
     QQuickView view;
     view.setResizeMode(QQuickView::SizeRootObjectToView);
 
-    QCommandLineParser parser;
-    parser.setApplicationDescription("QML Donny twitter demo");
-    parser.addHelpOption();
-
-    // QCommandLineOption hostOption(QStringList() << "d" << "destination", "destination ip", "host", "127.0.0.1");
-    // parser.addOption(hostOption);
-    //
-    // QCommandLineOption portOption(QStringList() << "p" << "port", "destination port", "port", "6000");
-    // parser.addOption(portOption);
-
-    parser.process(app);
-
     QList<QObject*> tweetList = loadTweets(app);
 
     QQmlContext *ctxt = view.rootContext();
     ctxt->setContextProperty("tweetModel", QVariant::fromValue(tweetList));
     view.setSource(QUrl::fromLocalFile(QCoreApplication::applicationDirPath() + QLatin1String("/donny_twitter.qml")));
 
-    view.show();
+    const QString lowerArgument = QString::fromLatin1(argv[1]).toLower();
+    if (lowerArgument == QLatin1String("--fullscreen")) {
+        view.showFullScreen();
+    } else {
+        view.show();
+    }
 
     return app.exec();
 }
