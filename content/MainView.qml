@@ -3,6 +3,9 @@ import QtQuick 2.0
 Item {
     id: root
 
+    // Set this to blur the mainView when showing something on top of it
+    property real blurAmount: 0
+
     anchors.fill: parent
 
     Item {
