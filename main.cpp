@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 
     parser.process(app);
 
-    QList<QObject*> tweetList = readJson(app);
+    QList<QObject*> tweetList = loadTweets(app);
 
     QQmlContext *ctxt = view.rootContext();
     ctxt->setContextProperty("tweetModel", QVariant::fromValue(tweetList));
