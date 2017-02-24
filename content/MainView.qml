@@ -36,12 +36,39 @@ Item {
             Rectangle {
                 id: wrapper
                 width: parent.width
-                height: 40
-                color: "#80FFFFFF"
+                height: tweet_column.height
+                color: "#90FFFFFF"
+                radius: 5
+                border.color: "#900000FF"
+                border.width: 2
                 Column {
-                    Text { text: date }
-                    Text { text: '<b>' + twitter_text + '</b> ' }
+                    id: tweet_column
+                    Text { id: date_text; text: date; }
+                    Text { id: tweet_text; text: '<b>' + twitter_text + '</b> '; wrapMode: Text.WordWrap; width: wrapper.width}
                 }
+
+                MouseArea {
+                    id: mouseArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onClicked: console.log("foo")
+                }
+
+                states: State {
+                    name: "bigger"; when: mouseArea.containsMouse == true
+                    PropertyChanges { target: wrapper; height: tweet_column.height; }
+                    PropertyChanges { target: date_text; font.pointSize: 20; }
+                    PropertyChanges { target: tweet_text; font.pointSize: 20; }
+                }
+
+                transitions: Transition {
+                    from: ""; to: "bigger"; reversible: true
+                    ParallelAnimation {
+                        NumberAnimation { properties: "height, font.pointSize"; duration: 150; easing.type: Easing.InOutQuad }
+                    }
+                }
+
+
             }
         }
 
@@ -50,6 +77,9 @@ Item {
             anchors.left: parent.left
             anchors.bottom: parent.bottom
             anchors.top: helloText.bottom
+            anchors.margins: 50
+
+            spacing: 10
 
             model: tweetModel
             delegate: tweetDelegate
